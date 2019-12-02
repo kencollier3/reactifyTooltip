@@ -3,13 +3,21 @@ import React from 'react';
 class Tooltip extends React.Component {
 
     render() {
+        this.onTooltipToggle();
+
+        return (
+            <span id='tooltip-child' className='tooltip-top'>{this.props.message}</span>
+        );
+    }
+
+    onTooltipToggle() {
         const TOP_MARGIN = 25;
 
         function handleTooltipToggle(tooltipParent, tooltipChild) {
             tooltipParent.addEventListener('mouseover', function () {
                 const parentRec = tooltipParent.getBoundingClientRect();
-                let childRec = tooltipParent.getBoundingClientRect();
-                let tooltipChildClass = tooltipChild.classList;
+                const childRec = tooltipParent.getBoundingClientRect();
+                const tooltipChildClass = tooltipChild.classList;
 
                 if (parentRec.y + childRec.height > parentRec.height + (childRec.height + TOP_MARGIN)) {
                     tooltipChildClass.remove('tooltip-bottom');
@@ -27,10 +35,6 @@ class Tooltip extends React.Component {
 
             handleTooltipToggle(tooltipParent, tooltipChild);
         });
-
-        return (
-            <span id='tooltip-child' className='tooltip-top'>{this.props.message}</span>
-        );
     }
 }
 export default Tooltip;
